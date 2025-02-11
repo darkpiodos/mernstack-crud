@@ -22,6 +22,10 @@ create a separate route
 create a controllers
 
 npm install multer
+npm install dotenv
+//
+node_modules
+.env
 
 Its a success | I can now finally upload and retrieve images
 

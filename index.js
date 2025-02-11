@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -19,9 +20,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://darkpiodos:VcaPhulnRpzQDqCY@backenddb.xzdc4.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendDB"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to the Database!");
     app.listen(3000, () => {
