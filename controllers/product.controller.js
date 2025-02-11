@@ -25,12 +25,25 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    const { name, quantity, price } = req.body;
+
+    if (!name || !quantity || !price || !req.file) {
+      return res.status(400).json({
+        message: "All fields (name, quantity, price, and image) are required.",
+      });
+    }
+
+    const product = new Product({
+      name,
+      quantity,
+      price,
+      image: `../uploads/${req.file.filename}`, // Save the file path in the database
     });
+
+    await product.save();
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
